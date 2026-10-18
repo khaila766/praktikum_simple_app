@@ -1,10 +1,8 @@
-
 pipeline {
     agent any
 
     environment {
         IMAGE_NAME = 'khaila766/praktikum_simple_app'
-        REGISTRY_CREDENTIALS = 'dockerhub-credentials'
     }
 
     stages {
@@ -35,7 +33,7 @@ pipeline {
                         passwordVariable: 'PASS'
                     )
                 ]) {
-                    bat 'echo %PASS% | docker login --username %USER% --password-stdin'
+                    bat 'echo %PASS%| docker login --username %USER% --password-stdin'
                     bat 'docker push %IMAGE_NAME%:%BUILD_NUMBER%'
                     bat 'docker tag %IMAGE_NAME%:%BUILD_NUMBER% %IMAGE_NAME%:latest'
                     bat 'docker push %IMAGE_NAME%:latest'
